@@ -10,14 +10,45 @@
 
 其中在GPU68上部署排序节点orderer.example.com，在GPU69上部署组织1的两个节点peer0.org1.example.com和peer1.org1.example.com，在GPU74上部署组织2的两个节点peer0.org2.example.com和peer1.org2.example.com，在GPU75上运行Locust测试脚本。
 
-## 代码使用
-在4台服务器上克隆仓库，并进入对应的目录。以GPU68为例：
+## 1. 代码使用
+
+#### 1.1 在4台服务器上克隆仓库，并进入对应的目录。
+
+以GPU68为例，进入GPU68的目录。
+
 ```
 git clone git@github.com:sousoul/multi-node.git
-cd multi-node/GPU68/fabric-go-sdk_htlc_2orgs/
+cd multi-node/GPU68/fabric-go-sdk_htlc_2orgs/ 
 ```
-执行
+#### 1.2 启动节点容器
 
+在GPU68，GPU69，GPU74三台服务器上，运行以下命令启动对应的节点容器
 
+```
+./restart_network.sh
+```
+
+#### 1.3 运行SDK
+
+在GPU69上，运行以下命令来运行SDK，完成网络的搭建。在本仓库中搭建了上方表格中所示的区块链网络，共包括组织1，组织2两个组织。
+
+```
+./fabric-go-sdk
+```
+
+#### 1.4 运行locust
+
+在GPU75上，运行以下命令。
+
+```
+cd multi-node/GPU75/LocustTest/
+locust
+```
+
+#### 1.5 设置测试参数
+
+在浏览器中打开http://10.200.5.128:8089/
+
+按下图配置参数，并开始测试。
 
 
