@@ -1,0 +1,43 @@
+syntax="proto3";
+
+//package main;
+package zkrow_package;
+
+//zkrow represents a row in the public ledger
+message zkrow {
+  map<string , OrgColumn> columns = 1; // 建立组织名到OrgColumn的映射
+  bool isValidBalCor = 2;
+  bool isValidAsset = 3;
+}
+
+// OrgColumn represents one organization
+message OrgColumn {
+  // transaction content
+  bytes commitment = 1;
+  bytes auditToken = 2;
+
+  // two step validation state
+  bool isValidBalCor = 3;
+  bool isValidAsset = 4;
+  // auxiliary data for proofs
+  bytes TokenPrime = 5;
+  bytes TokenDoublePrime = 6;
+
+//  string amount = 7; //添加这个交易值字段用于测试
+
+//  RangeProof rp = 7;
+//  DisjunctiveProof dzkp = 8;
+}
+
+
+//syntax="proto3";
+//
+////package main;
+//package financial_package;
+//message Financial {
+//  string bankName = 1;
+//  string ifscCode = 2;
+//  string accNumber = 3;
+//  string createdDate = 4;
+//}
+

@@ -1,0 +1,74 @@
+syntax="proto3";
+
+//package main;
+package zkrow_package;
+
+//zkrow represents a row in the public ledger
+message zkrow {
+  map<string , OrgColumn> columns = 1; // 建立组织名到OrgColumn的映射
+  bool isValidBalCor = 2;
+  bool isValidAsset = 3;
+}
+
+// OrgColumn represents one organization
+message OrgColumn {
+  // transaction content
+  bytes commitment = 1;
+  bytes auditToken = 2;
+
+  // two step validation state
+  bool isValidBalCor = 3;
+  bool isValidAsset = 4;
+  // auxiliary data for proofs
+  bytes TokenPrime = 5;
+  bytes TokenDoublePrime = 6;
+
+  RangeProof rp = 7;
+//  bytes rp = 7;
+  DisjunctiveProof dzkp = 8;
+//  bytes dzkp = 8;
+
+  bytes s = 9; // 承诺之积
+  bytes t = 10; // token之积
+}
+
+message DisjunctiveProof {
+  bytes proof = 1;
+  bytes g1 = 2; // ECpoint
+  bytes y1 = 3;
+  bytes g2 = 4;
+  bytes y2 = 5;
+}
+
+
+message RangeProof {
+  bytes Comm = 1; // ECpoint
+  bytes A = 2;
+  bytes S = 3;
+  bytes T1 = 4;
+  bytes T2 = 5;
+
+  bytes Tau = 6; // *big.Int
+  bytes Th = 7;
+  bytes Mu = 8;
+
+  InnerProdArg IPP = 9; // an inner-product proof rp.IPP
+
+  // challenges
+  bytes Cy = 10; // *big.Int
+  bytes Cz = 11;
+  bytes Cx = 12;
+}
+
+message InnerProdArg {
+  bytes L = 1; // ECpoint
+  bytes R = 2;
+  bytes A = 3; // *big.Int
+  bytes B = 4;
+
+  // 只要使用repeated标记类型定义，就表示数组类型。 https://www.tizi365.com/archives/378.html
+  repeated bytes Challenges = 5; // []*big.Int
+}
+
+// 在保存有zkrow.proto的目录下，执行系列命令生成go代码
+// protoc --go_out=.  zkrow.proto
