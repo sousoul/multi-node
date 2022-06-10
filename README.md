@@ -49,6 +49,10 @@ locust
 
 在浏览器中打开http://10.200.5.128:8089/
 
-按下图配置参数，并开始测试。
+按下图配置参数，
+
+<img width="336" alt="image" src="https://user-images.githubusercontent.com/49592082/173161718-3c26799c-abe4-4d61-a2c2-a3a20eff4ebc.png">
+
+并点击Start swarming开始测试。
 
 
